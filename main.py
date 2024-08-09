@@ -1,4 +1,4 @@
-import os
+
 
 def my_function(x: str, y: str) -> None:
     print("The sum of x and y is: " + str(x + y))
