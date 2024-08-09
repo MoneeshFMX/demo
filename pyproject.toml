@@ -1,4 +1,18 @@
 [tool.ruff]
-select = ["E", "F", "W"]  # Define the error codes to check
-ignore = ["E501"]  # Ignore specific errors, e.g., line too long
-line-length = 88  # Set a custom max line length
+line-length = 79  # Default PEP8 line length
+preview = true  # Enable preview features for additional checks
+
+[tool.ruff.lint]
+select = [
+    "E",  # All errors related to PEP8
+    "W",  # All warnings related to PEP8
+    "F",  # All errors related to code quality
+    "UP",  # All upgrades related to improving code compatibility and modern syntax
+    "B",  # All bugbear-related checks
+    "SIM",  # All simplification-related checks
+    "I",  # All import sorting-related checks
+    "C90",  # Complexity checks related to code readability and maintainability
+]
+
+# Optionally, you can ignore specific rules if needed
+ignore = ["E501"]  # Ignore long line errors if you don't want to enforce it strictly
