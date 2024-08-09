@@ -1,3 +1,4 @@
+[tool.ruff]
 select = ["E", "F", "W"]  # Define the error codes to check
 ignore = ["E501"]  # Ignore specific errors, e.g., line too long
 line-length = 88  # Set a custom max line length
