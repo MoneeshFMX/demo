@@ -20,25 +20,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'  # Specify the Python version you need
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install ruff
-        
-    - name: List files before formatting
-      run: find . -name "*.py"
 
     - name: Run Ruff
       id: ruff-check
       run: ruff check .
-
-    - name: Run Ruff Format
-      if: steps.ruff-check.outcome == 'success'
-      run: ruff format .
-
-    - name: Check for changes after formatting
-      if: steps.ruff-format.outcome == 'success'
-      run: git diff --exit-code
-    
