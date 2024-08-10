@@ -14,5 +14,4 @@ select = [
     "C90",  # Complexity checks related to code readability and maintainability
 ]
 
-# Optionally, you can ignore specific rules if needed
-ignore = ["E501"]  # Ignore long line errors if you don't want to enforce it strictly
+ignore = [] 
