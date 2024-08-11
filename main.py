@@ -1,6 +1,3 @@
-import os, sys
-
-
 def my_function(x: str, y: str) -> None:
     print("The sum of x and y is: " + str(x + y))
 
@@ -12,9 +9,6 @@ def my_function(x: str, y: str) -> None:
 
     if y == 20:
         print("Y is equal to 20")
-        
-    nums = 100
 
 
 my_function(5, 20)
-
