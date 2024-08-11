@@ -20,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'  # Specify the Python version you need
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
@@ -30,12 +30,3 @@ jobs:
     - name: Run Ruff
       id: ruff-check
       run: ruff check .
-
-    - name: Run Ruff Format
-      if: steps.ruff-check.outcome == 'success'
-      run: ruff format .
-
-    - name: Check for changes after formatting
-      if: steps.ruff-format.outcome == 'success'
-      run: git diff --exit-code
-    
