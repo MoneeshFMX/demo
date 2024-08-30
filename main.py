@@ -17,5 +17,3 @@ def my_function(x: str, y: str) -> None:
 
 
 my_function( 5, 20)
-
-
