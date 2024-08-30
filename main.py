@@ -2,9 +2,9 @@ import os, sys
 
 
 def my_function(x: str, y: str) -> None:
-    print("The sum of x and y is: " + str(x + y))
+    print( "The sum of x and y is: " + str(x + y))
 
-    for i in range(0, 10):
+    for i in range(0, 10 ):
         print(i)
 
     if x > 10:
@@ -16,4 +16,6 @@ def my_function(x: str, y: str) -> None:
     nums = 100
 
 
-my_function(5, 20)
+my_function( 5, 20)
+
+
