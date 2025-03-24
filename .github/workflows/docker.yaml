@@ -1,6 +1,9 @@
 name: Linux_Container_Workflow
 
 on:
+    push:
+        branches: [ "dev", "main" ]
+        tags: [ '*.*.*' ]
     pull_request:
       branches: 
         - dev
@@ -18,18 +21,16 @@ jobs:
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@v2  # Ensure you're using v2 for better control over fetch options
 
-        # Fetch all tags from the repository
-        - name: 'Fetch all tags'
-          run: git fetch --tags
-        
-        # Check out the source branch of the PR
-        - name: 'Checkout pull request branch'
-          run: |
-            PR_BRANCH="${GITHUB_HEAD_REF}"  # This is the branch from which the PR was created
-            git checkout "$PR_BRANCH"
-
         # Build and push the Docker image
         - run: |
-            # Get the latest tag (associated with the PR source branch)
-            TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag from the PR branch
+            if [[ $GITHUB_EVENT_NAME == "pull_request" && $GITHUB_EVENT_ACTION == "closed" ]]; then
+                PR_BRANCH="${GITHUB_HEAD_REF}"  # This is the branch from which the PR was created
+                git checkout "$PR_BRANCH"
+                # Get the latest tag (associated with the PR source branch)
+                TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag from the PR branch
+            else
+                # It's a tag push, extract the tag name
+                TAG_NAME=${GITHUB_REF#refs/tags/}  # Use tag name for push
+            fi  # Close the if block
+
             echo "Using tag: $TAG_NAME"
