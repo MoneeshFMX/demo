@@ -2,12 +2,9 @@ name: Linux_Container_Workflow
 
 on:
     push:
-        branches: [ "dev", "main" ]
+        branches: 
+            - dev
         tags: [ '*.*.*' ]
-    pull_request:
-      branches: 
-        - dev
-      types: [closed]
 
 env:
     AZURE_REPOSITORY: "demo-version"
