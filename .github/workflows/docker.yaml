@@ -20,7 +20,7 @@ jobs:
           
         # Fetch all tags
         - name: 'Fetch all tags'
-          run: git fetch --tags
+          run: git status
         
         # Build and push the Docker image
         - run: |
