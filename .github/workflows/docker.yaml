@@ -1,33 +1,30 @@
 name: Linux_Container_Workflow
 
 on:
-    push:
-        branches: 
-            - dev
-        tags: [ '*.*.*' ]
+  push:
+    branches:
+      - dev
+    tags: [ '*.*.*' ]
 
 env:
-    AZURE_REPOSITORY: "demo-version"
+  AZURE_REPOSITORY: "demo-version"
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
-        steps:
-        
-        # Checkout the Repo
-        - name: 'Checkout GitHub Action'
-          uses: actions/checkout@v2  # Ensure you're using v2 for better control over fetch options
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the Repo
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2  # Ensure you're using v2 for better control over fetch options
 
-        # Build and push the Docker image
-        - run: |
-           if [[ $GITHUB_REF == refs/tags/* ]]; then
-                # It's a tag push, extract the tag name
-                TAG_NAME=${GITHUB_REF#refs/tags/}  # Use tag name for push
-            else
-                PR_BRANCH="${GITHUB_HEAD_REF}"  # This is the branch from which the PR was created
-                git checkout "$PR_BRANCH"
-                # Get the latest tag (associated with the PR source branch)
-                TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag from the PR branch
-            fi  # Close the if block
+      # Build and push the Docker image
+      - run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            # It's a tag push, extract the tag name
+            TAG_NAME=${GITHUB_REF#refs/tags/}  # Use tag name for push
+          else
+            # It's a push to the dev branch, set tag as 'latest'
+            TAG_NAME="latest"
+          fi
 
-            echo "Using tag: $TAG_NAME"
+          echo "Using tag: $TAG_NAME"
