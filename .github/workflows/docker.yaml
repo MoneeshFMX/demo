@@ -31,4 +31,6 @@ jobs:
             else
                 # It's a tag push, extract the tag name
                 TAG_NAME=${GITHUB_REF#refs/tags/}  # Use tag name for push
+            fi  # Close the if block
+
             echo "Using tag: $TAG_NAME"
