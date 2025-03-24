@@ -17,13 +17,19 @@ jobs:
         # Checkout the Repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@v2  # Ensure you're using v2 for better control over fetch options
-          
-        # Fetch all tags
+
+        # Fetch all tags from the repository
         - name: 'Fetch all tags'
-          run: git status
+          run: git fetch --tags
         
+        # Check out the source branch of the PR
+        - name: 'Checkout pull request branch'
+          run: |
+            PR_BRANCH="${GITHUB_HEAD_REF}"  # This is the branch from which the PR was created
+            git checkout "$PR_BRANCH"
+
         # Build and push the Docker image
         - run: |
-            git fetch --tags
-            TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag
+            # Get the latest tag (associated with the PR source branch)
+            TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag from the PR branch
             echo "Using tag: $TAG_NAME"
