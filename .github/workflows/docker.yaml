@@ -24,12 +24,5 @@ jobs:
         
         # Build and push the Docker image
         - run: |
-            # Check if the ref is a tag or a pull request
-            if [[ $GITHUB_REF == refs/tags/* ]]; then
-                # It's a tag push, extract the tag name
-                TAG_NAME=${GITHUB_REF#refs/tags/}  # Use tag name for push
-            elif [[ $GITHUB_REF == refs/pull/* ]]; then
-                # It's a pull request, extract the latest tag
-                TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag
-            fi
+            TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag
             echo "Using tag: $TAG_NAME"
