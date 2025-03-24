@@ -33,6 +33,10 @@ jobs:
 
         # Build and push the Docker image
         - run: |
-            # Get the latest tag (associated with the PR source branch)
-            TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag from the PR branch
+            if [[ $GITHUB_REF == refs/pull/* ]]; then
+                # Get the latest tag (associated with the PR source branch)
+                TAG_NAME=$(git describe --tags --abbrev=0)  # Get the latest tag from the PR branch
+            else
+                # It's a tag push, extract the tag name
+                TAG_NAME=${GITHUB_REF#refs/tags/}  # Use tag name for push
             echo "Using tag: $TAG_NAME"
